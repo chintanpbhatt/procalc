@@ -23,6 +23,8 @@ class StringCalculator:
         for num in numbers_str_list:
             if num:
                 n = float(num)
+                if n > 1000:
+                    continue
                 if n < 0:
                     negatives.append(int(n))
                 total += n
