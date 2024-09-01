@@ -24,3 +24,7 @@ def test_add_single_number(calculator, numbers, expected_sum):
 
 def test_add_two_numbers(calculator):
     assert calculator.add("1,2") == 3
+
+
+def test_add_any_amount_of_numbers(calculator):
+    assert calculator.add("5,10,15") == 30
