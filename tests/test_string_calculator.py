@@ -40,3 +40,11 @@ def test_add_any_amount_of_numbers_with_new_lines(calculator):
 )
 def test_add_any_amount_of_numbers_custom_delimiter(calculator, numbers, expected_sum):
     assert calculator.add(numbers) == expected_sum
+
+
+def test_add_negative_numbers_throw_exception(calculator):
+    with pytest.raises(ValueError, match=r"Negative numbers not allowed: -2"):
+        calculator.add("1,-2,3")
+
+    with pytest.raises(ValueError, match=r"Negative numbers not allowed: -1, -2"):
+        calculator.add("-1,-2,3,4")
