@@ -32,3 +32,11 @@ def test_add_any_amount_of_numbers(calculator):
 
 def test_add_any_amount_of_numbers_with_new_lines(calculator):
     assert calculator.add("5\n10,15") == 30
+
+
+@pytest.mark.parametrize(
+    "numbers, expected_sum",
+    [("//;\n1;2", 3), ("//|\n1|2|3", 6), ("//#\n1#2#3#4", 10)],
+)
+def test_add_any_amount_of_numbers_custom_delimiter(calculator, numbers, expected_sum):
+    assert calculator.add(numbers) == expected_sum
