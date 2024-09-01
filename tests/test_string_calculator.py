@@ -2,8 +2,12 @@ import pytest
 from app.string_calculator import StringCalculator
 
 
-def test_add_empty_string():
-    calculator = StringCalculator()
+@pytest.fixture
+def calculator():
+    return StringCalculator()
+
+
+def test_add_empty_string(calculator):
     assert calculator.add("") == 0
 
 
@@ -14,6 +18,9 @@ def test_add_empty_string():
         ("10", 10),
     ],
 )
-def test_add_single_number(numbers, expected_sum):
-    calculator = StringCalculator()
+def test_add_single_number(calculator, numbers, expected_sum):
     assert calculator.add(numbers) == expected_sum
+
+
+def test_add_two_numbers(calculator):
+    assert calculator.add("1,2") == 3
