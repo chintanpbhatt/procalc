@@ -12,8 +12,14 @@ class StringCalculator:
 
         if numbers.startswith(StringCalculator.DELIMITER_INDICATOR):
             parts = numbers.split('\n', maxsplit=1)
-            delimiter = parts[0][len(StringCalculator.DELIMITER_INDICATOR) :]
-            delimiter = re.escape(delimiter)
+            delimiter_section = parts[0][len(StringCalculator.DELIMITER_INDICATOR) :]
+            if delimiter_section.startswith('[') and delimiter_section.endswith(']'):
+                # Handling multiple delimiters enclosed in square brackets
+                delimiters = re.findall(r'\[(.*?)\]', delimiter_section)
+                delimiter = '|'.join(re.escape(delim) for delim in delimiters)
+            else:
+                delimiter = re.escape(delimiter_section)
+
             numbers = parts[1]
         numbers_str_list = re.split(delimiter, numbers)
 
