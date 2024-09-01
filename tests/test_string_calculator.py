@@ -28,3 +28,7 @@ def test_add_two_numbers(calculator):
 
 def test_add_any_amount_of_numbers(calculator):
     assert calculator.add("5,10,15") == 30
+
+
+def test_add_any_amount_of_numbers_with_new_lines(calculator):
+    assert calculator.add("5\n10,15") == 30
