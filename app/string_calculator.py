@@ -16,5 +16,18 @@ class StringCalculator:
             delimiter = re.escape(delimiter)
             numbers = parts[1]
         numbers_str_list = re.split(delimiter, numbers)
-        numbers_list = [float(string) for string in numbers_str_list]
-        return int(sum(numbers_list))
+
+        total = 0
+        negatives = []
+
+        for num in numbers_str_list:
+            if num:
+                n = float(num)
+                if n < 0:
+                    negatives.append(int(n))
+                total += n
+
+        if negatives:
+            raise ValueError(f"Negative numbers not allowed: {', '.join(map(str, negatives))}")
+
+        return int(total)
