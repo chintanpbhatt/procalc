@@ -59,3 +59,11 @@ def test_add_negative_numbers_throw_exception(calculator):
 )
 def test_add_any_amount_of_numbers_ignore_1000_plus(calculator, numbers, expected_sum):
     assert calculator.add(numbers) == expected_sum
+
+
+@pytest.mark.parametrize(
+    "numbers, expected_sum",
+    [("//;;;\n1;;;2", 3), ("//||\n1||2||3", 6), ("//**\n1**2**3**4", 10)],
+)
+def test_add_any_amount_of_numbers_n_size_delimiter(calculator, numbers, expected_sum):
+    assert calculator.add(numbers) == expected_sum
