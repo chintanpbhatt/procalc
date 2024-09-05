@@ -75,3 +75,11 @@ def test_add_any_amount_of_numbers_n_size_delimiter(calculator, numbers, expecte
 )
 def test_add_any_amount_of_numbers_n_size_multiple_delimiter(calculator, numbers, expected_sum):
     assert calculator.add(numbers) == expected_sum
+
+
+@pytest.mark.parametrize(
+    "numbers, expected_sum",
+    [("//*\n1*2", 2), ("//*\n1*2*3", 6), ("//*\n1*2*3*4", 24)],
+)
+def test_mul_any_amount_of_numbers_star_delimiter(calculator, numbers, expected_sum):
+    assert calculator.add(numbers) == expected_sum
