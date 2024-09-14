@@ -1,5 +1,7 @@
 import re
 
+# if * then muliplity
+
 
 class StringCalculator:
     DELIMITER_INDICATOR = '//'
@@ -20,16 +22,22 @@ class StringCalculator:
                     delimiter = re.escape(delimiter_section)
 
                 numbers = parts[1]
+
             numbers_str_list = re.split(delimiter, numbers)
             m_args = list(args)
             m_args[1] = numbers_str_list
 
-            return func(*m_args, **kwargs)
+            my_keys = {}
+            my_keys['is_muliply'] = False
+            if delimiter == re.escape('*'):  # '\*':
+                my_keys['is_muliply'] = True
+            return func(*m_args, **my_keys)
 
         return wrapper
 
     @parse_numbers
-    def add(self, numbers: list[str] | str):
+    def add(self, numbers: list[str] | str, is_muliply=False):
+        print(is_muliply)
         if not numbers:
             return 0
 
@@ -43,7 +51,12 @@ class StringCalculator:
                     continue
                 if n < 0:
                     negatives.append(int(n))
-                total += n
+                if is_muliply:
+                    if total == 0:
+                        total = 1
+                    total *= n
+                else:
+                    total += n
 
         if negatives:
             raise ValueError(f"Negative numbers not allowed: {', '.join(map(str, negatives))}")
